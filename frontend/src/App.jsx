@@ -1,0 +1,160 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { fetchBugs, submitBug } from "./api";
+
+const initial = {
+  title: "", project_name: "", programming_language: "", severity: "Medium",
+  description: "", stack_trace: "", error_logs: "", files: []
+};
+const accepted = ".txt,.log,.json,.csv,.pdf";
+const formatDate = value => new Date(value).toLocaleString();
+
+export default function App() {
+  const [form, setForm] = useState(initial);
+  const [dragging, setDragging] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(null);
+  const [bugs, setBugs] = useState([]);
+  const [loadingList, setLoadingList] = useState(true);
+
+  const totalSize = useMemo(() => form.files.reduce((n, f) => n + f.size, 0), [form.files]);
+  const update = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
+
+  async function loadBugs() {
+    try { setBugs(await fetchBugs()); }
+    catch { /* The form remains usable; API errors are shown on submit. */ }
+    finally { setLoadingList(false); }
+  }
+  useEffect(() => { loadBugs(); }, []);
+
+  function addFiles(incoming) {
+    setError("");
+    const list = Array.from(incoming || []);
+    const next = [...form.files];
+    for (const file of list) {
+      const ext = "." + (file.name.split(".").pop() || "").toLowerCase();
+      if (![".txt", ".log", ".json", ".csv", ".pdf"].includes(ext)) {
+        setError(`${file.name}: unsupported format. Use TXT, LOG, JSON, CSV or PDF.`);
+        continue;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        setError(`${file.name}: file exceeds the 10 MB limit.`);
+        continue;
+      }
+      if (next.some(f => f.name === file.name && f.size === file.size)) continue;
+      if (next.length >= 5) {
+        setError("You can upload at most 5 files.");
+        break;
+      }
+      next.push(file);
+    }
+    if (next.reduce((n, f) => n + f.size, 0) > 25 * 1024 * 1024) {
+      setError("Combined upload size cannot exceed 25 MB.");
+      return;
+    }
+    update("files", next);
+  }
+
+  function validate() {
+    if (!form.title.trim()) return "Please enter a bug title.";
+    if (form.title.trim().length > 180) return "Bug title must be 180 characters or fewer.";
+    if (!form.description.trim()) return "Please enter a bug description.";
+    if (form.description.length > 20000) return "Description must be 20,000 characters or fewer.";
+    if (form.stack_trace.length > 100000 || form.error_logs.length > 100000) return "Stack trace and error logs must each be 100,000 characters or fewer.";
+    return "";
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setError(""); setSuccess(null);
+    const validation = validate();
+    if (validation) { setError(validation); return; }
+    setSubmitting(true);
+    try {
+      const result = await submitBug(form);
+      setSuccess(result);
+      setForm(initial);
+      event.target.reset();
+      await loadBugs();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e) {
+      setError(e.message || "Could not submit the bug report.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <div className="app-shell">
+      <header className="topbar">
+        <a className="brand" href="#"><span className="brand-mark">B</span><span>Bug<span className="brand-light">Diagnosis</span></span></a>
+        <span className="module-tag"><span className="live-dot"/> M1.3 · Bug Submission</span>
+      </header>
+
+      <main className="layout">
+        <section className="intro">
+          <div className="eyebrow">INTELLIGENT SOFTWARE DEBUGGING</div>
+          <h1>Every bug has a <span>starting point.</span></h1>
+          <p>Submit the issue, attach the evidence, and prepare it for intelligent diagnosis.</p>
+          <div className="intro-points">
+            <span><i>✓</i> Structured bug reports</span>
+            <span><i>✓</i> Logs and stack traces</span>
+            <span><i>✓</i> Historical diagnosis ready</span>
+          </div>
+        </section>
+
+        {success && <div className="alert success"><div><strong>Bug report submitted successfully</strong><p>Your report is saved and ready for the diagnosis pipeline.</p><code>{success.bug_id}</code></div><button className="close" onClick={() => setSuccess(null)}>×</button></div>}
+        {error && <div className="alert error"><strong>Submission issue:</strong> {error}<button className="close" onClick={() => setError("")}>×</button></div>}
+
+        <div className="content-grid">
+          <form className="form-card" onSubmit={handleSubmit}>
+            <div className="card-heading"><div><div className="section-kicker">NEW REPORT</div><h2>Submit a bug report</h2><p>Fields marked <b>*</b> are required.</p></div><span className="step-icon">01</span></div>
+
+            <div className="field">
+              <label htmlFor="title">Bug title <b>*</b></label>
+              <input id="title" value={form.title} maxLength={180} onChange={e => update("title", e.target.value)} placeholder="e.g. Application crashes during login" required />
+              <small>{form.title.length}/180 characters</small>
+            </div>
+
+            <div className="two-col">
+              <div className="field"><label htmlFor="project">Project name</label><input id="project" value={form.project_name} onChange={e => update("project_name", e.target.value)} placeholder="e.g. Customer Portal" /></div>
+              <div className="field"><label htmlFor="language">Programming language</label><input id="language" value={form.programming_language} onChange={e => update("programming_language", e.target.value)} placeholder="e.g. Python, Java" /></div>
+            </div>
+
+            <div className="field">
+              <label>Severity</label>
+              <div className="severity-options">
+                {["Low", "Medium", "High", "Critical"].map(level => <button type="button" key={level} className={`severity ${form.severity === level ? "selected " + level.toLowerCase() : ""}`} onClick={() => update("severity", level)}>{level}</button>)}
+              </div>
+            </div>
+
+            <div className="field"><label htmlFor="description">Bug description <b>*</b></label><textarea id="description" value={form.description} onChange={e => update("description", e.target.value)} maxLength={20000} rows={5} placeholder={"What happened? What did you expect to happen?\nInclude steps to reproduce the issue..."} required /><small>{form.description.length.toLocaleString()}/20,000 characters</small></div>
+
+            <div className="field"><label htmlFor="stack">Stack trace <span className="optional">OPTIONAL</span></label><textarea id="stack" className="code-input" value={form.stack_trace} onChange={e => update("stack_trace", e.target.value)} rows={5} placeholder={"Paste the exception and stack trace here...\nExample: NullPointerException at LoginService.java:45"} /></div>
+
+            <div className="field"><label htmlFor="logs">Error logs <span className="optional">OPTIONAL</span></label><textarea id="logs" className="code-input" value={form.error_logs} onChange={e => update("error_logs", e.target.value)} rows={5} placeholder={"Paste relevant application logs here...\nInclude timestamps and error messages where available."} /></div>
+
+            <div className="field">
+              <div className="upload-label"><label>Attachments <span className="optional">OPTIONAL</span></label><span className="upload-limit">Max 5 files · 10 MB each · 25 MB total</span></div>
+              <div className={`dropzone ${dragging ? "dragging" : ""}`} onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={e => { e.preventDefault(); setDragging(false); addFiles(e.dataTransfer.files); }}>
+                <input id="files" type="file" accept={accepted} multiple onChange={e => { addFiles(e.target.files); e.target.value = ""; }} />
+                <label htmlFor="files" className="upload-action"><span className="upload-icon">↑</span><strong>Choose files</strong><span> or drag and drop here</span></label>
+                <p>Supported formats: .TXT, .LOG, .JSON, .CSV, .PDF</p>
+              </div>
+              {form.files.length > 0 && <div className="file-list">{form.files.map((file, i) => <div className="file-item" key={`${file.name}-${i}`}><span className="file-type">{file.name.split(".").pop().toUpperCase()}</span><span className="file-name">{file.name}<small>{(file.size / 1024).toFixed(1)} KB</small></span><button type="button" className="remove-file" aria-label={`Remove ${file.name}`} onClick={() => update("files", form.files.filter((_, index) => index !== i))}>×</button></div>)}<div className="size-total">{form.files.length} file(s) · {(totalSize / 1024 / 1024).toFixed(2)} MB total</div></div>}
+            </div>
+
+            <div className="form-footer"><span><span className="secure-icon">▣</span> Your report is stored locally in this project.</span><button className="submit-button" type="submit" disabled={submitting}>{submitting ? <><span className="spinner"/> Submitting...</> : <>Submit bug report <span>→</span></>}</button></div>
+          </form>
+
+          <aside className="side-column">
+            <div className="info-card"><div className="side-icon">✳</div><h3>What happens next?</h3><p>Your report is stored now. The AI diagnosis agents will be connected in a later milestone.</p><ol><li><span>1</span><div><b>Report validation</b><small>Required fields and files are checked.</small></div></li><li><span>2</span><div><b>Secure storage</b><small>Report metadata and attachments are saved.</small></div></li><li><span>3</span><div><b>Ready for diagnosis</b><small>Prepared for the M1.4 knowledge base and agent pipeline.</small></div></li></ol></div>
+            <div className="recent-card"><div className="recent-heading"><h3>Recent submissions</h3><span>{bugs.length}</span></div>{loadingList ? <p className="muted">Loading reports...</p> : bugs.length === 0 ? <div className="empty-state"><span>▤</span><p>No reports yet.</p><small>Your submitted bugs will appear here.</small></div> : <div className="recent-list">{bugs.slice(0, 6).map(bug => <div className="recent-item" key={bug.bug_id}><div className="recent-bug-icon">B</div><div className="recent-text"><b title={bug.title}>{bug.title}</b><small>{bug.bug_id} · {formatDate(bug.created_at)}</small></div><span className={`severity-dot ${bug.severity.toLowerCase()}`} title={bug.severity}/></div>)}</div>}</div>
+            <div className="format-note"><b>Submission tip</b><p>Include the exact error message, steps to reproduce, and the relevant section of the log. Avoid uploading passwords, access tokens, or other secrets.</p></div>
+          </aside>
+        </div>
+        <footer>INTELLIGENT BUG DIAGNOSIS PLATFORM <span>·</span> MILESTONE 1.3</footer>
+      </main>
+    </div>
+  );
+}
