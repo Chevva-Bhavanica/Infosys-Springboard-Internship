@@ -1,4 +1,4 @@
-# 🐞 Intelligent Bug Diagnosis Platform with Fix Recommendation Assistance
+#  Intelligent Bug Diagnosis Platform with Fix Recommendation Assistance
 
 **Infosys Springboard Virtual Internship Program**
 
