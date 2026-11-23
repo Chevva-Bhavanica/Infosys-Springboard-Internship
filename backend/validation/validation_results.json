@@ -1,0 +1,838 @@
+[
+    {
+        "test_id": "TC01",
+        "name": "Java login NullPointerException",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "exception_type": "NullPointerException",
+            "failure_file": "LoginService.java",
+            "line_number": 42
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Functional based on its description. Authentication identified from matching technical terms. High severity selected using impact indicators: application crashes. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: login",
+                "Component indicator: authentication",
+                "Severity indicator: application crashes"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "NullPointerException",
+            "error_message": "Authentication failed. Cannot invoke getPassword() because user is null.",
+            "failure_file": "LoginService.java",
+            "line_number": 42,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC02",
+        "name": "Java array index error during export",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "File / Storage",
+            "exception_type": "ArrayIndexOutOfBoundsException",
+            "failure_file": "ExportService.java",
+            "line_number": 55
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "File / Storage",
+            "confidence": 0.75,
+            "reasoning": "Bug classified as Functional based on its description. File / Storage identified from matching technical terms. Reported severity High used as fallback because stronger impact evidence was unavailable. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: file",
+                "Severity indicator: Reported severity: High"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "ArrayIndexOutOfBoundsException",
+            "error_message": "Index 10 out of bounds",
+            "failure_file": "ExportService.java",
+            "line_number": 55,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC03",
+        "name": "Java database connection failure",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Database",
+            "exception_type": "SQLException",
+            "failure_file": "DatabaseService.java",
+            "line_number": 30
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Database",
+            "confidence": 0.75,
+            "reasoning": "Bug classified as Functional based on its description. Database identified from matching technical terms. Reported severity High used as fallback because stronger impact evidence was unavailable. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: database",
+                "Severity indicator: Reported severity: High"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "SQLException",
+            "error_message": "Connection refused",
+            "failure_file": "DatabaseService.java",
+            "line_number": 30,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC04",
+        "name": "Java out of memory",
+        "expected": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Memory / Runtime",
+            "exception_type": "OutOfMemoryError",
+            "failure_file": "DataProcessor.java",
+            "line_number": 88
+        },
+        "actual": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Memory / Runtime",
+            "confidence": 0.95,
+            "reasoning": "Bug classified as Performance based on its description. Memory / Runtime identified from matching technical terms. High severity selected using impact indicators: application crashes. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: out of memory",
+                "Component indicator: memory",
+                "Component indicator: crashes",
+                "Severity indicator: application crashes"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "OutOfMemoryError",
+            "error_message": "Java heap space",
+            "failure_file": "DataProcessor.java",
+            "line_number": 88,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC05",
+        "name": "Python division by zero",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Unknown",
+            "exception_type": "ZeroDivisionError",
+            "failure_file": "calculator.py",
+            "line_number": 25
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Unknown",
+            "confidence": 0.7,
+            "reasoning": "Bug classified as Functional based on its description. Affected component could not be determined confidently. Medium severity selected using impact indicators: incorrect result. Priority P2 assigned using the severity mapping.",
+            "evidence": [
+                "Severity indicator: incorrect result"
+            ],
+            "missing_information": [],
+            "reported_severity": "Medium",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "ZeroDivisionError",
+            "error_message": "division by zero",
+            "failure_file": "calculator.py",
+            "line_number": 25,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC06",
+        "name": "Python missing file",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "Low",
+            "priority": "P3",
+            "affected_component": "File / Storage",
+            "exception_type": "FileNotFoundError",
+            "failure_file": "upload.py",
+            "line_number": 18
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "Low",
+            "priority": "P3",
+            "affected_component": "File / Storage",
+            "confidence": 0.75,
+            "reasoning": "Bug classified as Functional based on its description. File / Storage identified from matching technical terms. Reported severity Low used as fallback because stronger impact evidence was unavailable. Priority P3 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: file",
+                "Component indicator: upload",
+                "Component indicator: document",
+                "Severity indicator: Reported severity: Low"
+            ],
+            "missing_information": [],
+            "reported_severity": "Low",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "FileNotFoundError",
+            "error_message": "document.txt",
+            "failure_file": "upload.py",
+            "line_number": 18,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC07",
+        "name": "Python attribute error in profile page",
+        "expected": {
+            "bug_category": "UI",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Frontend / UI",
+            "exception_type": "AttributeError",
+            "failure_file": "profile.py",
+            "line_number": 61
+        },
+        "actual": {
+            "bug_category": "UI",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Frontend / UI",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as UI based on its description. Frontend / UI identified from matching technical terms. Reported severity Medium used as fallback because stronger impact evidence was unavailable. Priority P2 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: rendering",
+                "Component indicator: rendering",
+                "Severity indicator: Reported severity: Medium"
+            ],
+            "missing_information": [],
+            "reported_severity": "Medium",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "AttributeError",
+            "error_message": "user has no attribute name",
+            "failure_file": "profile.py",
+            "line_number": 61,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC08",
+        "name": "Python key error in API",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "API / Backend",
+            "exception_type": "KeyError",
+            "failure_file": "api_handler.py",
+            "line_number": 73
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "API / Backend",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Functional based on its description. API / Backend identified from matching technical terms. Medium severity selected using impact indicators: incorrect result. Priority P2 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: api",
+                "Severity indicator: incorrect result"
+            ],
+            "missing_information": [],
+            "reported_severity": "Medium",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "KeyError",
+            "error_message": "'user_id'",
+            "failure_file": "api_handler.py",
+            "line_number": 73,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC09",
+        "name": "JavaScript button failure",
+        "expected": {
+            "bug_category": "UI",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Frontend / UI",
+            "exception_type": "TypeError",
+            "failure_file": "C:\\project\\src\\Button.js",
+            "line_number": 10
+        },
+        "actual": {
+            "bug_category": "UI",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Frontend / UI",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as UI based on its description. Frontend / UI identified from matching technical terms. Reported severity Medium used as fallback because stronger impact evidence was unavailable. Priority P2 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: button",
+                "Component indicator: react",
+                "Component indicator: javascript",
+                "Component indicator: button",
+                "Severity indicator: Reported severity: Medium"
+            ],
+            "missing_information": [],
+            "reported_severity": "Medium",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "TypeError",
+            "error_message": "onSubmit is not a function",
+            "failure_file": "C:\\project\\src\\Button.js",
+            "line_number": 10,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC10",
+        "name": "JavaScript reference error in login",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "exception_type": "ReferenceError",
+            "failure_file": "C:\\project\\src\\auth.js",
+            "line_number": 22
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Functional based on its description. Authentication identified from matching technical terms. High severity selected using impact indicators: cannot login. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: login",
+                "Component indicator: authentication",
+                "Severity indicator: cannot login"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "ReferenceError",
+            "error_message": "token is not defined",
+            "failure_file": "C:\\project\\src\\auth.js",
+            "line_number": 22,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC11",
+        "name": "JavaScript syntax error in build",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "Low",
+            "priority": "P3",
+            "affected_component": "Build / Deployment",
+            "exception_type": "SyntaxError",
+            "failure_file": "C:\\project\\build.js",
+            "line_number": 15
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "Low",
+            "priority": "P3",
+            "affected_component": "Build / Deployment",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Functional based on its description. Build / Deployment identified from matching technical terms. Low severity selected using impact indicators: minor. Priority P3 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: build",
+                "Component indicator: compiling",
+                "Component indicator: configuration",
+                "Severity indicator: minor"
+            ],
+            "missing_information": [],
+            "reported_severity": "Low",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "SyntaxError",
+            "error_message": "Unexpected token",
+            "failure_file": "C:\\project\\build.js",
+            "line_number": 15,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC12",
+        "name": "JavaScript database timeout",
+        "expected": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Database",
+            "exception_type": "Error",
+            "failure_file": "C:\\project\\db.js",
+            "line_number": 40
+        },
+        "actual": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Database",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Performance based on its description. Database identified from matching technical terms. Reported severity High used as fallback because stronger impact evidence was unavailable. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: timeout",
+                "Component indicator: database",
+                "Severity indicator: Reported severity: High"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "Error",
+            "error_message": "Connection timeout",
+            "failure_file": "C:\\project\\db.js",
+            "line_number": 40,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC13",
+        "name": "Description-only UI bug",
+        "expected": {
+            "bug_category": "UI",
+            "severity": "Low",
+            "priority": "P3",
+            "affected_component": "Frontend / UI",
+            "exception_type": null,
+            "failure_file": null,
+            "line_number": null
+        },
+        "actual": {
+            "bug_category": "UI",
+            "severity": "Low",
+            "priority": "P3",
+            "affected_component": "Frontend / UI",
+            "confidence": 0.95,
+            "reasoning": "Bug classified as UI based on its description. Frontend / UI identified from matching technical terms. Low severity selected using impact indicators: minor, tooltip. Priority P3 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: css",
+                "Category indicator: alignment",
+                "Component indicator: css",
+                "Severity indicator: minor",
+                "Severity indicator: tooltip"
+            ],
+            "missing_information": [],
+            "reported_severity": "Low",
+            "agent_version": "triage-rules-v1",
+            "exception_type": null,
+            "error_message": null,
+            "failure_file": null,
+            "line_number": null,
+            "log_confidence": 0.2,
+            "log_missing_information": [
+                "Recognizable stack frame",
+                "Exception type",
+                "Error message"
+            ]
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC14",
+        "name": "Java stack trace without error logs",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "exception_type": "NullPointerException",
+            "failure_file": "AuthService.java",
+            "line_number": 77
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Functional based on its description. Authentication identified from matching technical terms. High severity selected using impact indicators: crash. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: login",
+                "Component indicator: authentication",
+                "Severity indicator: crash"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "NullPointerException",
+            "error_message": null,
+            "failure_file": "AuthService.java",
+            "line_number": 77,
+            "log_confidence": 0.75,
+            "log_missing_information": [
+                "Error message"
+            ]
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC15",
+        "name": "JavaScript logs without stack trace",
+        "expected": {
+            "bug_category": "UI",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Frontend / UI",
+            "exception_type": "TypeError",
+            "failure_file": null,
+            "line_number": null
+        },
+        "actual": {
+            "bug_category": "UI",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Frontend / UI",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as UI based on its description. Frontend / UI identified from matching technical terms. Reported severity Medium used as fallback because stronger impact evidence was unavailable. Priority P2 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: rendering",
+                "Component indicator: react",
+                "Component indicator: rendering",
+                "Severity indicator: Reported severity: Medium"
+            ],
+            "missing_information": [],
+            "reported_severity": "Medium",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "TypeError",
+            "error_message": "Cannot read properties of undefined (reading 'name')",
+            "failure_file": null,
+            "line_number": null,
+            "log_confidence": 0.55,
+            "log_missing_information": [
+                "Recognizable stack frame"
+            ]
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC16",
+        "name": "Incomplete Python bug report",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Unknown",
+            "exception_type": null,
+            "failure_file": null,
+            "line_number": null
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Unknown",
+            "confidence": 0.35,
+            "reasoning": "Bug classified as Functional based on its description. Affected component could not be determined confidently. Limited impact evidence; Medium assigned as a provisional default. Priority P2 assigned using the severity mapping. Missing information: title, project_name.",
+            "evidence": [],
+            "missing_information": [
+                "title",
+                "project_name"
+            ],
+            "reported_severity": "",
+            "agent_version": "triage-rules-v1",
+            "exception_type": null,
+            "error_message": null,
+            "failure_file": null,
+            "line_number": null,
+            "log_confidence": 0.2,
+            "log_missing_information": [
+                "Recognizable stack frame",
+                "Exception type",
+                "Error message"
+            ]
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC17",
+        "name": "Java authentication failure",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "exception_type": null,
+            "failure_file": null,
+            "line_number": null
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Authentication",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Functional based on its description. Authentication identified from matching technical terms. High severity selected using impact indicators: cannot login. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Component indicator: login",
+                "Component indicator: authentication",
+                "Severity indicator: cannot login"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": null,
+            "error_message": "Invalid credentials accepted by validation service.",
+            "failure_file": null,
+            "line_number": null,
+            "log_confidence": 0.35,
+            "log_missing_information": [
+                "Recognizable stack frame",
+                "Exception type"
+            ]
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC18",
+        "name": "Python API timeout",
+        "expected": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "API / Backend",
+            "exception_type": "TimeoutError",
+            "failure_file": "api_client.py",
+            "line_number": 91
+        },
+        "actual": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "API / Backend",
+            "confidence": 0.85,
+            "reasoning": "Bug classified as Performance based on its description. API / Backend identified from matching technical terms. Reported severity High used as fallback because stronger impact evidence was unavailable. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: timeout",
+                "Component indicator: api",
+                "Severity indicator: Reported severity: High"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "TimeoutError",
+            "error_message": "request timed out",
+            "failure_file": "api_client.py",
+            "line_number": 91,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC19",
+        "name": "JavaScript memory leak",
+        "expected": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Memory / Runtime",
+            "exception_type": "RangeError",
+            "failure_file": "C:\\project\\src\\worker.js",
+            "line_number": 120
+        },
+        "actual": {
+            "bug_category": "Performance",
+            "severity": "High",
+            "priority": "P1",
+            "affected_component": "Memory / Runtime",
+            "confidence": 0.95,
+            "reasoning": "Bug classified as Performance based on its description. Memory / Runtime identified from matching technical terms. High severity selected using impact indicators: crash. Priority P1 assigned using the severity mapping.",
+            "evidence": [
+                "Category indicator: memory leak",
+                "Component indicator: memory",
+                "Component indicator: crash",
+                "Severity indicator: crash"
+            ],
+            "missing_information": [],
+            "reported_severity": "High",
+            "agent_version": "triage-rules-v1",
+            "exception_type": "RangeError",
+            "error_message": "Maximum call stack size exceeded",
+            "failure_file": "C:\\project\\src\\worker.js",
+            "line_number": 120,
+            "log_confidence": 0.9,
+            "log_missing_information": []
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    },
+    {
+        "test_id": "TC20",
+        "name": "Go panic with incomplete diagnostic details",
+        "expected": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Unknown",
+            "exception_type": null,
+            "failure_file": "main.go",
+            "line_number": 23
+        },
+        "actual": {
+            "bug_category": "Functional",
+            "severity": "Medium",
+            "priority": "P2",
+            "affected_component": "Unknown",
+            "confidence": 0.55,
+            "reasoning": "Bug classified as Functional based on its description. Affected component could not be determined confidently. Limited impact evidence; Medium assigned as a provisional default. Priority P2 assigned using the severity mapping.",
+            "evidence": [],
+            "missing_information": [],
+            "reported_severity": "",
+            "agent_version": "triage-rules-v1",
+            "exception_type": null,
+            "error_message": "runtime error: invalid memory address",
+            "failure_file": "main.go",
+            "line_number": 23,
+            "log_confidence": 0.6,
+            "log_missing_information": [
+                "Exception type"
+            ]
+        },
+        "triage_success": true,
+        "log_analysis_success": true,
+        "triage_error": null,
+        "log_analysis_error": null,
+        "mismatches": [],
+        "all_expected_checks_pass": true
+    }
+]

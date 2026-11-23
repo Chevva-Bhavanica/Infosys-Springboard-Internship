@@ -1,0 +1,18 @@
+Commands M1
+cd /d C:\Users\bhava\Desktop\BugDiagnosisPlatform\backend
+py -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+
+cd /d C:\Users\bhava\Desktop\BugDiagnosisPlatform\frontend
+npm install
+npm run dev
+
+Title: Application crashes with NullPointerException
+Project: Test Project
+Programming Language: Java
+Severity: High
+Description: Application crashes when opening the login page.
+Stack Trace: java.lang.NullPointerException
+Error Logs: Login module failed unexpectedly.

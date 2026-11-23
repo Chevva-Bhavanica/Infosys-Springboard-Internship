@@ -54,6 +54,33 @@ def init_db():
                     ON DELETE CASCADE
             )
         """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS triage_results (
+                bug_id TEXT PRIMARY KEY,
+                result_json TEXT NOT NULL,
+                status TEXT NOT NULL,
+                error TEXT,
+                analyzed_at TEXT NOT NULL,
+                FOREIGN KEY (bug_id)
+                    REFERENCES bug_reports(bug_id)
+                    ON DELETE CASCADE
+            )
+        """)
+
+        # Store combined output from all agents
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS agent_contexts (
+                bug_id TEXT PRIMARY KEY,
+                context_json TEXT NOT NULL,
+                status TEXT NOT NULL,
+                error TEXT,
+                analyzed_at TEXT NOT NULL,
+                FOREIGN KEY (bug_id)
+                    REFERENCES bug_reports(bug_id)
+                    ON DELETE CASCADE
+            )
+        """)
+
 
         conn.execute("""
             CREATE INDEX IF NOT EXISTS idx_submitted_bug_created

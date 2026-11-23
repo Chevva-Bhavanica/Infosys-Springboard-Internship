@@ -4,7 +4,9 @@ import re
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional, List
+from typing import List
+from agents.triage_agent import triage_bug
+from agents.log_analysis_agent import analyze_logs
 
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from app_database import get_connection
@@ -34,14 +36,75 @@ def validate_file_content(filename: str, content: bytes):
         except UnicodeDecodeError:
             raise HTTPException(400, detail=f"{filename}: file must be UTF-8 text.")
 
+
 def serialize_bug(conn, row):
     attachments = conn.execute(
-        "SELECT original_name, file_type, file_size, sha256 FROM attachments WHERE bug_id=?",
+        """
+        SELECT original_name, file_type, file_size, sha256
+        FROM attachments
+        WHERE bug_id=?
+        """,
         (row["bug_id"],)
     ).fetchall()
+
+    triage_row = conn.execute(
+        """
+        SELECT result_json, status, error
+        FROM triage_results
+        WHERE bug_id=?
+        """,
+        (row["bug_id"],)
+    ).fetchone()
+
+    context_row = conn.execute(
+        """
+        SELECT context_json, status, error
+        FROM agent_contexts
+        WHERE bug_id=?
+        """,
+        (row["bug_id"],)
+    ).fetchone()
+
+    triage_data = None
+    triage_status = "pending"
+    triage_error = None
+
+    if triage_row:
+        triage_status = triage_row["status"]
+        triage_error = triage_row["error"]
+
+        if triage_row["result_json"]:
+            triage_data = json.loads(triage_row["result_json"])
+
+    agent_context = None
+    log_analysis_data = None
+    log_analysis_status = "pending"
+    log_analysis_error = None
+    orchestration_status = "pending"
+
+    if context_row:
+        agent_context = json.loads(context_row["context_json"])
+        log_analysis_data = agent_context.get("log_analysis")
+        log_analysis_status = agent_context.get(
+            "log_analysis_status", "pending"
+        )
+        log_analysis_error = agent_context.get("log_analysis_error")
+        orchestration_status = context_row["status"]
+
     return {
         **dict(row),
-        "attachments": [dict(a) for a in attachments]
+        "attachments": [dict(a) for a in attachments],
+
+        "triage": triage_data,
+        "triage_status": triage_status,
+        "triage_error": triage_error,
+
+        "log_analysis": log_analysis_data,
+        "log_analysis_status": log_analysis_status,
+        "log_analysis_error": log_analysis_error,
+
+        "agent_context": agent_context,
+        "orchestration_status": orchestration_status
     }
 
 
@@ -54,7 +117,7 @@ async def create_bug(
     description: str = Form(...),
     stack_trace: str = Form(""),
     error_logs: str = Form(""),
-    files: Optional[List[UploadFile]] = File(None),
+    files: List[UploadFile] = File(default=[]),
 ):
     # 1. Validate text fields
     title = title.strip()
@@ -245,11 +308,175 @@ async def create_bug(
             similar_bugs = []
             retrieval_status = "unavailable"
 
-        # 8. Add retrieval results to response
+                # 8. Add historical retrieval results
         bug_data["similar_bugs"] = similar_bugs
         bug_data["retrieval_status"] = retrieval_status
 
+        # 9. Execute Triage Agent
+        
+        # 9. Execute both agents through orchestration
+
+        triage_data = None
+        log_analysis_data = None
+
+        triage_status = "pending"
+        log_analysis_status = "pending"
+
+        triage_error = None
+        log_analysis_error = None
+
+        # -------------------------------------
+        # A. TRIAGE AGENT
+        # -------------------------------------
+
+        try:
+            triage_result = triage_bug({
+                "title": title,
+                "description": description,
+                "project_name": project_name,
+                "programming_language": programming_language,
+                "severity": severity
+            })
+
+            triage_data = (
+                triage_result.model_dump()
+                if hasattr(triage_result, "model_dump")
+                else triage_result.dict()
+            )
+
+            triage_status = "completed"
+
+            with get_connection() as conn:
+                conn.execute(
+                    """
+                    INSERT OR REPLACE INTO triage_results
+                    (bug_id, result_json, status, error, analyzed_at)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (
+                        bug_id,
+                        json.dumps(triage_data),
+                        "completed",
+                        None,
+                        datetime.now(timezone.utc).isoformat()
+                    )
+                )
+
+        except Exception as exc:
+            triage_status = "failed"
+            triage_error = str(exc)[:1000]
+            print("Triage Agent error:", exc)
+
+        # -------------------------------------
+        # B. LOG ANALYSIS AGENT
+        # -------------------------------------
+
+        try:
+            log_result = analyze_logs({
+                "title": title,
+                "description": description,
+                "stack_trace": stack_trace,
+                "error_logs": error_logs
+            })
+
+            log_analysis_data = (
+                log_result.model_dump()
+                if hasattr(log_result, "model_dump")
+                else log_result.dict()
+            )
+
+            log_analysis_status = "completed"
+
+        except Exception as exc:
+            log_analysis_status = "failed"
+            log_analysis_error = str(exc)[:1000]
+            print("Log Analysis Agent error:", exc)
+
+        # -------------------------------------
+        # C. COMBINE AGENT OUTPUTS
+        # -------------------------------------
+
+        agent_context = {
+            "bug_id": bug_id,
+
+            "triage": triage_data,
+            "triage_status": triage_status,
+            "triage_error": triage_error,
+
+            "log_analysis": log_analysis_data,
+            "log_analysis_status": log_analysis_status,
+            "log_analysis_error": log_analysis_error
+        }
+
+        # Determine overall orchestration status
+        if (
+            triage_status == "completed"
+            and log_analysis_status == "completed"
+        ):
+            orchestration_status = "completed"
+
+        elif (
+            triage_status == "failed"
+            and log_analysis_status == "failed"
+        ):
+            orchestration_status = "failed"
+
+        else:
+            orchestration_status = "partial"
+
+        # -------------------------------------
+        # D. PERSIST COMMON AGENT CONTEXT
+        # -------------------------------------
+
+        context_error = (
+            triage_error or log_analysis_error
+        )
+
+        try:
+            with get_connection() as conn:
+                conn.execute(
+                    """
+                    INSERT OR REPLACE INTO agent_contexts
+                    (
+                        bug_id,
+                        context_json,
+                        status,
+                        error,
+                        analyzed_at
+                    )
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (
+                        bug_id,
+                        json.dumps(agent_context),
+                        orchestration_status,
+                        context_error,
+                        datetime.now(timezone.utc).isoformat()
+                    )
+                )
+
+        except Exception as exc:
+            print("Agent context persistence error:", exc)
+
+            orchestration_status = "partial"
+
+        # -------------------------------------
+        # E. ADD RESULTS TO API RESPONSE
+        # -------------------------------------
+
+        bug_data["triage"] = triage_data
+        bug_data["triage_status"] = triage_status
+        bug_data["triage_error"] = triage_error
+
+        bug_data["log_analysis"] = log_analysis_data
+        bug_data["log_analysis_status"] = log_analysis_status
+        bug_data["log_analysis_error"] = log_analysis_error
+
+        bug_data["agent_context"] = agent_context
+        bug_data["orchestration_status"] = orchestration_status
+
         return bug_data
+
 
     except Exception:
         # 9. Remove saved files if submission fails

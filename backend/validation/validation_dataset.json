@@ -1,0 +1,443 @@
+
+[
+  {
+    "test_id": "TC01",
+    "name": "Java login NullPointerException",
+    "input": {
+      "title": "NullPointerException during user login",
+      "description": "Application crashes when a user submits the login form because authentication accesses a null user object.",
+      "project_name": "TestProject",
+      "programming_language": "Java",
+      "severity": "High",
+      "stack_trace": "java.lang.NullPointerException\n at com.example.LoginService.authenticate(LoginService.java:42)",
+      "error_logs": "ERROR LoginService - Authentication failed. Cannot invoke getPassword() because user is null."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Authentication",
+      "exception_type": "NullPointerException",
+      "failure_file": "LoginService.java",
+      "line_number": 42
+    }
+  },
+  {
+    "test_id": "TC02",
+    "name": "Java array index error during export",
+    "input": {
+      "title": "ArrayIndexOutOfBoundsException during file export",
+      "description": "The export operation crashes when the application reads an invalid array index while generating a report file.",
+      "project_name": "TestProject",
+      "programming_language": "Java",
+      "severity": "High",
+      "stack_trace": "java.lang.ArrayIndexOutOfBoundsException: Index 10 out of bounds\n at com.example.ExportService.export(ExportService.java:55)",
+      "error_logs": "ERROR ExportService - Report export failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "File / Storage",
+      "exception_type": "ArrayIndexOutOfBoundsException",
+      "failure_file": "ExportService.java",
+      "line_number": 55
+    }
+  },
+  {
+    "test_id": "TC03",
+    "name": "Java database connection failure",
+    "input": {
+      "title": "Database connection failure",
+      "description": "The database service is unavailable and the application cannot complete database transactions.",
+      "project_name": "TestProject",
+      "programming_language": "Java",
+      "severity": "High",
+      "stack_trace": "java.sql.SQLException: Connection refused\n at com.example.DatabaseService.connect(DatabaseService.java:30)",
+      "error_logs": "ERROR DatabaseService - Database connection failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Database",
+      "exception_type": "SQLException",
+      "failure_file": "DatabaseService.java",
+      "line_number": 30
+    }
+  },
+  {
+    "test_id": "TC04",
+    "name": "Java out of memory",
+    "input": {
+      "title": "OutOfMemoryError during processing",
+      "description": "The application crashes because it runs out of memory while processing a large data collection.",
+      "project_name": "TestProject",
+      "programming_language": "Java",
+      "severity": "High",
+      "stack_trace": "java.lang.OutOfMemoryError: Java heap space\n at com.example.DataProcessor.process(DataProcessor.java:88)",
+      "error_logs": "FATAL DataProcessor - Processing terminated."
+    },
+    "expected": {
+      "bug_category": "Performance",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Memory / Runtime",
+      "exception_type": "OutOfMemoryError",
+      "failure_file": "DataProcessor.java",
+      "line_number": 88
+    }
+  },
+  {
+    "test_id": "TC05",
+    "name": "Python division by zero",
+    "input": {
+      "title": "ZeroDivisionError in calculation",
+      "description": "The calculation returns an incorrect result because a division operation uses zero as the denominator.",
+      "project_name": "TestProject",
+      "programming_language": "Python",
+      "severity": "Medium",
+      "stack_trace": "Traceback (most recent call last):\n  File \"calculator.py\", line 25, in calculate\n    result = total / count\nZeroDivisionError: division by zero",
+      "error_logs": "ERROR Calculator - Calculation failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "Unknown",
+      "exception_type": "ZeroDivisionError",
+      "failure_file": "calculator.py",
+      "line_number": 25
+    }
+  },
+  {
+    "test_id": "TC06",
+    "name": "Python missing file",
+    "input": {
+      "title": "FileNotFoundError during document upload",
+      "description": "The application cannot locate the requested document file during upload.",
+      "project_name": "TestProject",
+      "programming_language": "Python",
+      "severity": "Low",
+      "stack_trace": "Traceback (most recent call last):\n  File \"upload.py\", line 18, in upload_document\nFileNotFoundError: document.txt",
+      "error_logs": "ERROR UploadService - File upload failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "Low",
+      "priority": "P3",
+      "affected_component": "File / Storage",
+      "exception_type": "FileNotFoundError",
+      "failure_file": "upload.py",
+      "line_number": 18
+    }
+  },
+  {
+    "test_id": "TC07",
+    "name": "Python attribute error in profile page",
+    "input": {
+      "title": "AttributeError in profile page",
+      "description": "The profile page rendering feature is not working because the application accesses a missing user attribute.",
+      "project_name": "TestProject",
+      "programming_language": "Python",
+      "severity": "Medium",
+      "stack_trace": "Traceback (most recent call last):\n  File \"profile.py\", line 61, in render_profile\nAttributeError: user has no attribute name",
+      "error_logs": "ERROR Profile - Profile rendering failed."
+    },
+    "expected": {
+      "bug_category": "UI",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "Frontend / UI",
+      "exception_type": "AttributeError",
+      "failure_file": "profile.py",
+      "line_number": 61
+    }
+  },
+  {
+    "test_id": "TC08",
+    "name": "Python key error in API",
+    "input": {
+      "title": "KeyError in API response",
+      "description": "The API returns an incorrect result because a required key is missing from the response dictionary.",
+      "project_name": "TestProject",
+      "programming_language": "Python",
+      "severity": "Medium",
+      "stack_trace": "Traceback (most recent call last):\n  File \"api_handler.py\", line 73, in get_response\nKeyError: 'user_id'",
+      "error_logs": "ERROR APIHandler - Response generation failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "API / Backend",
+      "exception_type": "KeyError",
+      "failure_file": "api_handler.py",
+      "line_number": 73
+    }
+  },
+  {
+    "test_id": "TC09",
+    "name": "JavaScript button failure",
+    "input": {
+      "title": "TypeError in React button",
+      "description": "The button feature is not working because a JavaScript function is not callable when the user clicks it.",
+      "project_name": "TestProject",
+      "programming_language": "JavaScript",
+      "severity": "Medium",
+      "stack_trace": "TypeError: onSubmit is not a function\n    at Object.handleClick (C:\\project\\src\\Button.js:10:5)",
+      "error_logs": "ERROR UI - Button click failed."
+    },
+    "expected": {
+      "bug_category": "UI",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "Frontend / UI",
+      "exception_type": "TypeError",
+      "failure_file": "C:\\project\\src\\Button.js",
+      "line_number": 10
+    }
+  },
+  {
+    "test_id": "TC10",
+    "name": "JavaScript reference error in login",
+    "input": {
+      "title": "ReferenceError during login",
+      "description": "Users cannot login because the authentication page references an undefined variable.",
+      "project_name": "TestProject",
+      "programming_language": "JavaScript",
+      "severity": "High",
+      "stack_trace": "ReferenceError: token is not defined\n    at login (C:\\project\\src\\auth.js:22:8)",
+      "error_logs": "ERROR Auth - Login request failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Authentication",
+      "exception_type": "ReferenceError",
+      "failure_file": "C:\\project\\src\\auth.js",
+      "line_number": 22
+    }
+  },
+  {
+    "test_id": "TC11",
+    "name": "JavaScript syntax error in build",
+    "input": {
+      "title": "SyntaxError in build configuration",
+      "description": "A minor syntax issue in the build configuration prevents the application from compiling.",
+      "project_name": "TestProject",
+      "programming_language": "JavaScript",
+      "severity": "Low",
+      "stack_trace": "SyntaxError: Unexpected token\n    at Object.compile (C:\\project\\build.js:15:3)",
+      "error_logs": "ERROR Build - Compilation failed."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "Low",
+      "priority": "P3",
+      "affected_component": "Build / Deployment",
+      "exception_type": "SyntaxError",
+      "failure_file": "C:\\project\\build.js",
+      "line_number": 15
+    }
+  },
+  {
+    "test_id": "TC12",
+    "name": "JavaScript database timeout",
+    "input": {
+      "title": "Database service timeout",
+      "description": "The database request experiences a timeout and the service becomes unavailable to users.",
+      "project_name": "TestProject",
+      "programming_language": "JavaScript",
+      "severity": "High",
+      "stack_trace": "Error: Connection timeout\n    at Object.connect (C:\\project\\db.js:40:2)",
+      "error_logs": "ERROR Database - Database service unavailable."
+    },
+    "expected": {
+      "bug_category": "Performance",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Database",
+      "exception_type": "Error",
+      "failure_file": "C:\\project\\db.js",
+      "line_number": 40
+    }
+  },
+  {
+    "test_id": "TC13",
+    "name": "Description-only UI bug",
+    "input": {
+      "title": "Minor tooltip alignment issue",
+      "description": "A minor CSS alignment issue affects the tooltip display on the settings page.",
+      "project_name": "TestProject",
+      "programming_language": "Python",
+      "severity": "Low",
+      "stack_trace": "",
+      "error_logs": ""
+    },
+    "expected": {
+      "bug_category": "UI",
+      "severity": "Low",
+      "priority": "P3",
+      "affected_component": "Frontend / UI",
+      "exception_type": null,
+      "failure_file": null,
+      "line_number": null
+    }
+  },
+  {
+    "test_id": "TC14",
+    "name": "Java stack trace without error logs",
+    "input": {
+      "title": "Login application crash",
+      "description": "The login authentication operation crashes when a user submits valid credentials.",
+      "project_name": "TestProject",
+      "programming_language": "Java",
+      "severity": "High",
+      "stack_trace": "java.lang.NullPointerException\n at com.example.AuthService.login(AuthService.java:77)",
+      "error_logs": ""
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Authentication",
+      "exception_type": "NullPointerException",
+      "failure_file": "AuthService.java",
+      "line_number": 77
+    }
+  },
+  {
+    "test_id": "TC15",
+    "name": "JavaScript logs without stack trace",
+    "input": {
+      "title": "React page TypeError",
+      "description": "The React page rendering feature is not working because it cannot read a property from an undefined object.",
+      "project_name": "TestProject",
+      "programming_language": "JavaScript",
+      "severity": "Medium",
+      "stack_trace": "",
+      "error_logs": "TypeError: Cannot read properties of undefined (reading 'name')"
+    },
+    "expected": {
+      "bug_category": "UI",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "Frontend / UI",
+      "exception_type": "TypeError",
+      "failure_file": null,
+      "line_number": null
+    }
+  },
+  {
+    "test_id": "TC16",
+    "name": "Incomplete Python bug report",
+    "input": {
+      "title": "",
+      "description": "Something failed during program execution.",
+      "project_name": "",
+      "programming_language": "Python",
+      "severity": "",
+      "stack_trace": "",
+      "error_logs": ""
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "Unknown",
+      "exception_type": null,
+      "failure_file": null,
+      "line_number": null
+    }
+  },
+  {
+    "test_id": "TC17",
+    "name": "Java authentication failure",
+    "input": {
+      "title": "Authentication failure",
+      "description": "Users cannot login to the application because the authentication service rejects valid credentials.",
+      "project_name": "TestProject",
+      "programming_language": "Java",
+      "severity": "High",
+      "stack_trace": "",
+      "error_logs": "ERROR AuthService - Invalid credentials accepted by validation service."
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Authentication",
+      "exception_type": null,
+      "failure_file": null,
+      "line_number": null
+    }
+  },
+  {
+    "test_id": "TC18",
+    "name": "Python API timeout",
+    "input": {
+      "title": "API request timeout",
+      "description": "The API service becomes unavailable when a request times out during data retrieval.",
+      "project_name": "TestProject",
+      "programming_language": "Python",
+      "severity": "High",
+      "stack_trace": "Traceback (most recent call last):\n  File \"api_client.py\", line 91, in fetch_data\nTimeoutError: request timed out",
+      "error_logs": "ERROR APIClient - Request failed."
+    },
+    "expected": {
+      "bug_category": "Performance",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "API / Backend",
+      "exception_type": "TimeoutError",
+      "failure_file": "api_client.py",
+      "line_number": 91
+    }
+  },
+  {
+    "test_id": "TC19",
+    "name": "JavaScript memory leak",
+    "input": {
+      "title": "Memory leak causes application crash",
+      "description": "A memory leak causes the application to crash during long-running operations.",
+      "project_name": "TestProject",
+      "programming_language": "JavaScript",
+      "severity": "High",
+      "stack_trace": "RangeError: Maximum call stack size exceeded\n    at Object.process (C:\\project\\src\\worker.js:120:4)",
+      "error_logs": "FATAL Worker - Processing stopped due to memory exhaustion."
+    },
+    "expected": {
+      "bug_category": "Performance",
+      "severity": "High",
+      "priority": "P1",
+      "affected_component": "Memory / Runtime",
+      "exception_type": "RangeError",
+      "failure_file": "C:\\project\\src\\worker.js",
+      "line_number": 120
+    }
+  },
+  {
+    "test_id": "TC20",
+    "name": "Go panic with incomplete diagnostic details",
+    "input": {
+      "title": "Unexpected program failure",
+      "description": "Something failed during program execution and the exact cause is not yet known.",
+      "project_name": "TestProject",
+      "programming_language": "Go",
+      "severity": "",
+      "stack_trace": "panic: runtime error: invalid memory address\nmain.go:23 +0x45",
+      "error_logs": "panic: runtime error: invalid memory address"
+    },
+    "expected": {
+      "bug_category": "Functional",
+      "severity": "Medium",
+      "priority": "P2",
+      "affected_component": "Unknown",
+      "exception_type": null,
+      "failure_file": "main.go",
+      "line_number": 23
+    }
+  }
+]

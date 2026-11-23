@@ -1,0 +1,47 @@
+{
+    "generated_at": "2026-11-23T15:17:30.973832+00:00",
+    "total_test_cases": 20,
+    "triage_success_count": 20,
+    "log_analysis_success_count": 20,
+    "both_agents_success_count": 20,
+    "both_agents_success_rate": 100.0,
+    "expected_checks_passed": 20,
+    "expected_checks_failed": 0,
+    "metrics": {
+        "Bug category accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        },
+        "Severity accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        },
+        "Priority accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        },
+        "Affected component accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        },
+        "Exception detection accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        },
+        "Failure location file accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        },
+        "Failure location line accuracy": {
+            "correct": 20,
+            "total": 20,
+            "accuracy_percent": 100.0
+        }
+    }
+}
