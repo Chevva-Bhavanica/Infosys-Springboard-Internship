@@ -456,23 +456,6 @@ FastAPI Swagger documentation:
 `http://127.0.0.1:8000/docs`
 
 ---
-## 🔮 Future Development
-
-The following capabilities are planned for subsequent milestones:
-
-- Root Cause Analysis Agent.
-- Duplicate Detection Agent.
-- Remediation Agent.
-- Complete five-agent orchestration.
-- Integration of historical defect retrieval with diagnostic agents.
-- LLM-powered root cause analysis.
-- Context-aware fix recommendation.
-- Improved semantic duplicate detection.
-- Interactive frontend dashboard for agent results.
-- End-to-end system testing and evaluation.
-- Performance and accuracy evaluation of the multi-agent system.
-
----
 
 ## 💡 Expected Impact
 
