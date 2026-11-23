@@ -226,6 +226,112 @@ Developed the foundation of a historical bug knowledge base using publicly avail
 - Apache Bug Reports
 - Eclipse Bug Reports
 
+---
+
+## 🚀 Project Development – Milestone 2
+
+**Milestone 2: Intelligent Bug Analysis Agents**
+
+Milestone 2 focuses on developing intelligent agents that automatically analyze submitted software bugs, classify their severity and priority, examine stack traces and error logs, and generate structured diagnostic results.
+
+### M2.1 – Triage Agent
+
+Implemented the Triage Agent to automatically analyze and classify incoming bug reports.
+
+**Key Features:**
+
+- Automatic severity classification:
+  - Critical
+  - High
+  - Medium
+  - Low
+- Automated priority assessment.
+- Identification of potentially affected application components.
+- Confidence scoring for classification results.
+- Reasoning and explanations behind classification decisions.
+- Structured triage results associated with submitted bug reports.
+
+### M2.2 – Log Analysis Agent
+
+Developed the Log Analysis Agent to examine application error logs and stack traces to identify useful debugging information.
+
+**Key Features:**
+
+- Stack trace parsing and analysis.
+- Exception type identification.
+- Error message extraction.
+- Identification of failure points.
+- Analysis of relevant log information.
+- Identification of potentially affected classes, files, and components.
+- Structured log analysis results.
+
+### M2.3 – Multi-Agent Integration
+
+Integrated the Triage Agent and Log Analysis Agent into the existing bug submission and diagnosis backend.
+
+**Key Features:**
+
+- Integrated both agents into the backend workflow.
+- Automatic agent execution during bug processing.
+- Shared bug information between agents.
+- Structured output generation from individual agents.
+- Integration of agent results with submitted bug records.
+- API-based access to integrated agent functionality.
+
+**Integrated Workflow:**
+
+```mermaid
+flowchart TD
+    A["Bug Report Submission"] --> B["Backend API"]
+    B --> C["Validation & Storage"]
+    C --> D["Agent Execution"]
+    D --> E["Triage Agent"]
+    D --> F["Log Analysis Agent"]
+    E --> G["Integrated Agent Results"]
+    F --> G
+    G --> H["Persist Agent Context"]
+    H --> I["API Response"]
+```
+
+### M2.4 – Agent Validation and API Integration
+
+Implemented validation and testing procedures to verify the functionality of individual agents and their integrated execution.
+
+**Validation Activities:**
+
+- Triage Agent classification validation.
+- Log Analysis Agent output validation.
+- Integrated execution of both agents.
+- Verification of agent-generated results.
+- API POST endpoint testing.
+- API GET endpoint testing.
+- Verification of persisted bug information and agent context.
+- Interactive API testing through FastAPI Swagger documentation.
+
+**API Documentation:**
+
+`http://127.0.0.1:8000/docs`
+
+**Important API Operations:**
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/bugs` | Submit bug and execute integrated processing |
+| GET | `/api/bugs/{bug_id}` | Retrieve bug information and associated results |
+| GET | `/api/bugs` | Retrieve submitted bug records |
+
+### Milestone 2 Outcome
+
+Successfully developed and integrated the Triage Agent and Log Analysis Agent into the Intelligent Bug Diagnosis Platform.
+
+The platform now supports automated bug classification, priority assessment, affected component identification, stack trace analysis, and structured diagnostic result generation.
+
+Both agents have been validated through backend testing and API integration.
+
+**Milestone 2 Status: Completed**
+
+---
+
 **Knowledge Base Processing Pipeline:**
 
 ```mermaid
@@ -264,21 +370,23 @@ flowchart TD
 These results demonstrate the initial preparation of the historical defect knowledge base.
 
 ---
-
 ## 🔄 Overall System Workflow
 
-The intended end-to-end workflow is:
+The platform follows a multi-stage intelligent bug diagnosis workflow:
 
-1. **Bug Submission:** Developer submits a bug report with relevant details, logs, or stack traces.
-2. **Validation:** The backend validates the submitted information.
-3. **Storage:** The bug report is stored with a unique identifier.
-4. **Preprocessing:** Bug information is cleaned and converted into searchable text.
-5. **Embedding Generation:** The text is converted into semantic vectors.
-6. **Historical Retrieval:** The system searches the knowledge base for related defects.
-7. **Bug Diagnosis:** Specialized agents analyze the bug and supporting evidence.
-8. **Root Cause Identification:** The system identifies potential reasons for the failure.
-9. **Fix Recommendation:** The remediation component suggests possible solutions.
-10. **Result Presentation:** Diagnostic information and recommendations are presented to the developer.
+1. **Bug Submission:** Developer submits a bug report with relevant details, logs, and stack traces.
+2. **Validation:** Backend validates the submitted information.
+3. **Storage:** Bug report is stored with a unique identifier.
+4. **Triage Analysis:** Triage Agent automatically classifies severity, priority, and affected components.
+5. **Log Analysis:** Log Analysis Agent examines stack traces, exceptions, and error logs.
+6. **Agent Integration:** Results from both agents are integrated and associated with the bug record.
+7. **Historical Retrieval:** The knowledge base supports retrieval of semantically related historical defects.
+8. **Root Cause Identification:** Root Cause Agent will analyze bug information and historical evidence.
+9. **Duplicate Detection:** Duplicate Detection Agent will identify previously reported or related defects.
+10. **Fix Recommendation:** Remediation Agent will generate possible corrective actions.
+11. **Result Presentation:** Integrated diagnostic information and recommendations are presented to the developer.
+
+Steps 8–10 represent planned capabilities for subsequent development.
 
 ---
 
@@ -311,37 +419,58 @@ BugDiagnosisPlatform/
 
 ---
 
-
 ## 🧪 Testing and Validation
 
-The following functionalities form the Milestone 1 testing scope:
+Testing and validation are performed throughout the development of the platform.
+
+### Milestone 1 Validation
 
 - Backend server startup and health check.
-- Bug report submission through the API.
+- Bug report submission through REST APIs.
 - Unique bug ID generation.
 - Request validation.
-- Database insertion.
-- Individual bug report retrieval.
-- Historical bug dataset processing.
+- Database insertion and retrieval.
+- Historical dataset processing.
 - Text chunk generation.
 - Embedding generation.
 - Semantic similarity retrieval.
 
----
+### Milestone 2 Validation
 
+- Triage Agent severity classification.
+- Priority assessment and component identification.
+- Triage confidence scoring and reasoning.
+- Log Analysis Agent stack trace parsing.
+- Exception and error message identification.
+- Failure point identification.
+- Integrated execution of both agents.
+- API POST request validation.
+- API GET request validation.
+- Verification of persisted agent context.
+- FastAPI Swagger API documentation testing.
+
+### API Testing
+
+FastAPI Swagger documentation:
+
+`http://127.0.0.1:8000/docs`
+
+---
 ## 🔮 Future Development
 
 The following capabilities are planned for subsequent milestones:
 
-- Complete multi-agent orchestration.
-- Automated bug classification and triage.
-- Advanced stack trace and log analysis.
+- Root Cause Analysis Agent.
+- Duplicate Detection Agent.
+- Remediation Agent.
+- Complete five-agent orchestration.
+- Integration of historical defect retrieval with diagnostic agents.
 - LLM-powered root cause analysis.
-- Improved duplicate bug detection.
 - Context-aware fix recommendation.
-- Interactive frontend dashboard.
-- Integration of all agents into a unified diagnosis workflow.
-- End-to-end testing and evaluation.
+- Improved semantic duplicate detection.
+- Interactive frontend dashboard for agent results.
+- End-to-end system testing and evaluation.
+- Performance and accuracy evaluation of the multi-agent system.
 
 ---
 
@@ -364,7 +493,7 @@ The platform aims to:
 
 **Program:** Infosys Springboard Virtual Internship Program
 
-**Milestone:** Milestone 1 – Foundation & Bug Understanding
+**Milestone:** Milestone 1 & Milestone 2 – Foundation, Bug Understanding & Intelligent Bug Analysis Agents
 
 **Domain:** Artificial Intelligence | Machine Learning | Software Engineering | NLP | RAG
 
